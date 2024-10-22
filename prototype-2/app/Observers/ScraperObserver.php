@@ -7,43 +7,62 @@ use Illuminate\Support\Facades\Log;
 use Psr\Http\Message\ResponseInterface;
 use Psr\Http\Message\UriInterface;
 use Spatie\Crawler\CrawlObservers\CrawlObserver;
+use App\Http\Controllers\Controller;
+use Symfony\Component\DomCrawler\Crawler as DomCrawler;
 
-class ScraperObserver extends \Spatie\Crawler\CrawlObservers\CrawlObserver
+
+
+class ScraperObserver extends CrawlObserver
 {
-    private $content;
-
-    public function __construct()
-    {
-        $this->content = [];
-    }
-
     public function willCrawl(UriInterface $url, ?string $linkText): void
     {
-        Log::info('willCrawl', ['url' => (string) $url]);
+        dd('willCrawl', ['url' => (string) $url]);
     }
 
     public function crawled(
         UriInterface $url,
         ResponseInterface $response,
         ?UriInterface $foundOnUrl = null,
-        ?string $linkText = null,
+        ?string $linkText = null
     ): void {
-        Log::info("Crawled: {$url}");
-    }
-    public function crawlFailed(
-        UriInterface $url,
-        RequestException $requestException,
-        ?UriInterface $foundOnUrl = null,
-        ?string $linkText = null,
-    ): void {
-        Log::error("Failed: {$url}");
+        $html = (string) $response->getBody();
+        $crawler = new DomCrawler($html);
+
+        try {
+            // Extract the product name
+            $name = $crawler->filter('.pdp-link a')->first()->text();
+            dd('Product Name: ' . $name);
+        } catch (\Exception $e) {
+            dd('Failed to extract name: ' . $e->getMessage());
+        }
     }
 
-    /*
-     * Called when the crawl has ended.
-     */
+    public function crawlFailed(
+        UriInterface $url,
+        \GuzzleHttp\Exception\RequestException $requestException,
+        ?UriInterface $foundOnUrl = null,
+        ?string $linkText = null
+    ): void {
+        dd("Failed: {$url}");
+    }
+
     public function finishedCrawling(): void
     {
-        Log::info("Finished crawling");
+        dd("Finished crawling");
+    }
+}
+
+class ScrapeController extends Controller
+{
+    public function __invoke()
+    {
+        $url = "https://www.torfs.be/nl/heren/schoenen/sneakers/?cgid=Heren-Schoenen-Sneakers&page=1.0&srule=nieuwste&sz=24";
+        Crawler::create()
+            ->setCrawlObserver(new ScraperObserver())
+            ->setMaximumDepth(0)
+            ->setTotalCrawlLimit(1)
+            ->setDelayBetweenRequests(500)  // Add delay if the site rate-limits
+            ->setConnectionTimeout(10)      // Increase timeout
+            ->startCrawling($url);
     }
 }

@@ -2,7 +2,6 @@
 
 namespace App\Http\Controllers;
 
-use App\Http\Controllers\Controller;
 use DOMDocument;
 use Illuminate\Http\JsonResponse;
 use Illuminate\Http\Request;
@@ -11,6 +10,7 @@ use Psr\Http\Message\ResponseInterface;
 use Psr\Http\Message\UriInterface;
 use Spatie\Crawler\Crawler;
 use App\Observers\ScraperObserver;
+use App\Http\Controllers\Controller;
 
 
 //Crawler::create()
@@ -20,11 +20,16 @@ use App\Observers\ScraperObserver;
 class ScrapeController extends Controller
 {
 
-//    public function test()
-//    {
-//       dd('test');
-//    }
 
+// testing out a simpler method with guzzle
+// Seems to be working fine
+// TODO: compare with spatie/crawler method
+    function scrape()
+    {
+        $client = new \GuzzleHttp\Client();
+        $res = $client->request('GET', 'https://www.torfs.be/nl/heren/schoenen/sneakers/?cgid=Heren-Schoenen-Sneakers&page=1.0&srule=nieuwste&sz=24');
+        echo $res->getBody();
+    }
 
 
 ////    testing out spatie/crawler
