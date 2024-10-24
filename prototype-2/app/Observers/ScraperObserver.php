@@ -8,6 +8,7 @@ use Psr\Http\Message\ResponseInterface;
 use Psr\Http\Message\UriInterface;
 use Spatie\Crawler\CrawlObservers\CrawlObserver;
 use App\Http\Controllers\Controller;
+use Symfony\Component\DomCrawler\Crawler;
 use Symfony\Component\DomCrawler\Crawler as DomCrawler;
 
 
@@ -16,7 +17,8 @@ class ScraperObserver extends CrawlObserver
 {
     public function willCrawl(UriInterface $url, ?string $linkText): void
     {
-        dd('willCrawl', ['url' => (string) $url]);
+
+//        dd('willCrawl', ['url' => (string) $url]);
     }
 
     public function crawled(
@@ -29,9 +31,23 @@ class ScraperObserver extends CrawlObserver
         $crawler = new DomCrawler($html);
 
         try {
+            $shoes = [];
             // Extract the product name
-            $name = $crawler->filter('.pdp-link a')->first()->text();
-            dd('Product Name: ' . $name);
+            $shoes = $crawler->filter('.product-tile')->each(function (Crawler $node, $i) {
+                $value = $node->filter('.value')->text();
+                $name = $node->filter('.pdp-link')->text();
+                $image = $node->filter('.tile-image')->text();
+                return [
+                    'name' => $name,
+                    'value' => $value,
+                    'image' => $image,
+                ];
+
+            });
+
+            dd($shoes);
+//            return view('scrape', compact('shoes'));
+
         } catch (\Exception $e) {
             dd('Failed to extract name: ' . $e->getMessage());
         }
@@ -50,19 +66,5 @@ class ScraperObserver extends CrawlObserver
     {
         dd("Finished crawling");
     }
-}
 
-class ScrapeController extends Controller
-{
-    public function __invoke()
-    {
-        $url = "https://www.torfs.be/nl/heren/schoenen/sneakers/?cgid=Heren-Schoenen-Sneakers&page=1.0&srule=nieuwste&sz=24";
-        Crawler::create()
-            ->setCrawlObserver(new ScraperObserver())
-            ->setMaximumDepth(0)
-            ->setTotalCrawlLimit(1)
-            ->setDelayBetweenRequests(500)  // Add delay if the site rate-limits
-            ->setConnectionTimeout(10)      // Increase timeout
-            ->startCrawling($url);
-    }
 }
