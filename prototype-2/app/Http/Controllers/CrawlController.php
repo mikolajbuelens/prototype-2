@@ -17,5 +17,6 @@ $url = "https://www.torfs.be/nl/heren/schoenen/sneakers/";
         Crawler::create()
             ->setCrawlObserver(new ScraperObserver())
     ->startCrawling($url);
+
     }
 }

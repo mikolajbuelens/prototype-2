@@ -41,12 +41,22 @@ class ScrapeController extends Controller
         $products = $crawler->filter('.product-tile')->each(function (Crawler $node, $i) {
             $value = $node->filter('.value')->text();
             $name = $node->filter('.pdp-link')->text();
-            $image = $node->filter('.product-tile__image')->text();
+//            $image = $node->filter('.tile-image')->text();
+          $image =  ($node->filter('.tile-image')->attr('src'));
+          if(str_contains($image, "data:image/gif") ) {
+              $image = $node->filter('.tile-image')->attr('data-src');
+          }
+//            $lazyLoadedImage = $node->filter('.tile-image')->attr('data-src');
+
+//            decode src="data:image/gif;base64
+//            $image = base64_decode($node->filter('.tile-image')->attr('src'));
+
 
             return [
                 'name' => $name,
                 'value' => $value,
                 'image' => $image,
+//                'lazyLoadedImage' => $lazyLoadedImage
                ];
 
         });

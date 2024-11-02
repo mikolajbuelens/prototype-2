@@ -21,6 +21,8 @@ class ScraperObserver extends CrawlObserver
 //        dd('willCrawl', ['url' => (string) $url]);
     }
 
+//    TODO: try to scrape the detail page of each shoe (i.e. with description, colors,...)
+
     public function crawled(
         UriInterface $url,
         ResponseInterface $response,
@@ -31,22 +33,21 @@ class ScraperObserver extends CrawlObserver
         $crawler = new DomCrawler($html);
 
         try {
-            $shoes = [];
+//            $shoes = [];
             // Extract the product name
-            $shoes = $crawler->filter('.product-tile')->each(function (Crawler $node, $i) {
+            $shoes = $crawler->filter('.product-tile')->each(function (Crawler $node) use(&$shoes) {
                 $value = $node->filter('.value')->text();
                 $name = $node->filter('.pdp-link')->text();
                 $image = $node->filter('.tile-image')->text();
-                return [
+               $shoes[] = [
                     'name' => $name,
                     'value' => $value,
                     'image' => $image,
                 ];
 
+//                return view('scrape', compact('shoes'));
+//dd($shoes);
             });
-
-            dd($shoes);
-//            return view('scrape', compact('shoes'));
 
         } catch (\Exception $e) {
             dd('Failed to extract name: ' . $e->getMessage());

@@ -16,8 +16,11 @@
         <div class="shoe">
             <h2>{{$product['name']}}</h2>
             <p>{{$product['value']}}</p>
-            <p>{{$product['image']}}</p>
+{{--            @if($product['image'] == "")--}}
+{{--                <p>Image not found</p>--}}
+{{--            @else--}}
             <img src="{{$product['image']}}" alt="{{$product['name']}}">
+{{--            @endif--}}
 {{--            <h2>{{$nestedProduct}}</h2>--}}
 
         </div>
