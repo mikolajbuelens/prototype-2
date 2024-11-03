@@ -8,22 +8,30 @@
     @vite(['resources/css/app.css'])
 </head>
 <body>
-<h1>Scraping Test</h1>
+<h1 class="logo">Scraper</h1>
+<nav>
+    <ul>
+        <li><a href={{route('html')}}>JSON</a></li>
+        <li><a href={{route('json')}}>HTML</a></li>
+    </ul>
+</nav>
 {{--<h2>{{$products[0]}}</h2>--}}
-
+<div class="shoes">
 @foreach($products as $product)
 {{--    @foreach($product as $nestedProduct)--}}
         <div class="shoe">
-            <h2>{{$product['name']}}</h2>
-            <p>{{$product['value']}}</p>
+
 {{--            @if($product['image'] == "")--}}
 {{--                <p>Image not found</p>--}}
 {{--            @else--}}
             <img src="{{$product['image']}}" alt="{{$product['name']}}">
+            <h2>{{$product['name']}}</h2>
+            <p>{{$product['value']}}</p>
 {{--            @endif--}}
 {{--            <h2>{{$nestedProduct}}</h2>--}}
 
         </div>
+
 {{--        <p>{{$nestedProduct['price']}}</p>--}}
 {{--        <p>{{$nestedProduct['description']}}</p>--}}
 {{--        <img src="{{$nestedProduct['image']}}" alt="{{$nestedProduct['name']}}">--}}
@@ -31,5 +39,6 @@
 
 
 @endforeach
+</div>
 </body>
 </html>
