@@ -6,15 +6,15 @@ use App\Http\Controllers\ScrapeController;
 
 
 
-Route::get('/', [ScrapeController::class, 'index']);
+Route::get('/html', [ScrapeController::class, 'index'])->name('html');
 //Route::get('/crawler', [ScrapeController::class, '__invoke'])->name('crawler');
 //Route::get('/test', [ScrapeController::class, 'test'])->name('test');
 //Route::get('/guzzle', [ScrapeController::class, 'scrape'])->name('scrape');
 //Route::get('/guzzle', function (){
 //    return view('scrape');
 //});
-Route::get('/scrape', [ScrapeController::class, 'scrape'])->name('scrape');
-Route::get('/scrape2', [ScrapeController::class, 'scrape2'])->name('scrape2');
+Route::get('/', [ScrapeController::class, 'scrape']);
+Route::get('/json', [ScrapeController::class, 'scrape2'])->name('json');
 Route::get('/crawl', [CrawlController::class, 'crawl'])->name('crawl');
 
 
