@@ -15,27 +15,18 @@
         <li><a href={{route('json')}}>HTML</a></li>
     </ul>
 </nav>
-{{--<h2>{{$products[0]}}</h2>--}}
+
 <div class="shoes">
 @foreach($products as $product)
-{{--    @foreach($product as $nestedProduct)--}}
-        <div class="shoe">
 
-{{--            @if($product['image'] == "")--}}
-{{--                <p>Image not found</p>--}}
-{{--            @else--}}
+        <div class="shoe">
             <img src="{{$product['image']}}" alt="{{$product['name']}}">
             <h2>{{$product['name']}}</h2>
             <p>{{$product['value']}}</p>
-{{--            @endif--}}
-{{--            <h2>{{$nestedProduct}}</h2>--}}
 
         </div>
 
-{{--        <p>{{$nestedProduct['price']}}</p>--}}
-{{--        <p>{{$nestedProduct['description']}}</p>--}}
-{{--        <img src="{{$nestedProduct['image']}}" alt="{{$nestedProduct['name']}}">--}}
-{{--    @endforeach--}}
+
 
 
 @endforeach

@@ -6,9 +6,6 @@
 
 
 .shoe{
-    /*border-bottom: rgba(32, 33, 36, 0.62) solid 6px;*/
-
-    /*padding: 10px;*/
     width: 30%;
     display: flex;
     flex-direction: column;
@@ -24,8 +21,6 @@
     width: 100%;
     height: 350px;
     object-fit: cover;
-
-    /*border-radius: 5px 5px 0 0;*/
 }
 
 nav ul{
@@ -52,7 +47,6 @@ padding: 10px;
     width: fit-content;
     font-size: small;
     font-family: Rockwell, sans-serif;
-
 }
 
 h2, p{
