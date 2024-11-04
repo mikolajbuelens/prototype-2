@@ -33,7 +33,6 @@ class ScraperObserver extends CrawlObserver
         $crawler = new DomCrawler($html);
 
         try {
-//            $shoes = [];
             // Extract the product name
             $shoes = $crawler->filter('.product-tile')->each(function (Crawler $node) use(&$shoes) {
                 $value = $node->filter('.value')->text();
@@ -45,8 +44,7 @@ class ScraperObserver extends CrawlObserver
                     'image' => $image,
                 ];
 
-//                return view('scrape', compact('shoes'));
-//dd($shoes);
+
             });
 
         } catch (\Exception $e) {

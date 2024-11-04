@@ -62,26 +62,15 @@ class ScrapeController extends Controller
         });
 
 
-//    dd($products);
+
         return view('scrape', compact('products'));
 
-//        $products = $crawler->filter('.product-tile')->each(function (Crawler $node) {
-//            $title = $node->filter('.product-name')->text();
-//            $price = $node->filter('.price')->text();
-//            return [
-//                'title' => $title,
-//                'price' => $price,
-//            ];
-//        });
 
 
-//        Crawler::create()
-//            ->setCrawlObserver(new ScraperObserver())
-//            ->startCrawling('https://www.torfs.be/nl/home?gad_source=1&gclid=CjwKCAjwpbi4BhByEiwAMC8JnZ0bD-Zfo1Zd9bpuALKpb3Sdzl5P9UXxu88Wuwdg-wbBYHjfkfi03xoC96YQAvD_BwE');
 
 
-//        $html = (string)$res->getBody();
 ////        parse with regex (Shouldn't be done on html)
+///
 ////        filter on class
 //        $pattern = '/<div\s+class="product-tile__image">([\s\S]+?)<\/div>/i';
 //        preg_match($pattern, $html, $matches);
