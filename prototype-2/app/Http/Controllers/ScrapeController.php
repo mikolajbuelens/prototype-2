@@ -32,7 +32,7 @@ class ScrapeController extends Controller
     {
 //        Will display all the html from the Torfs website
         $client = new \GuzzleHttp\Client();
-        $res = $client->request('GET', 'https://www.torfs.be/nl/heren/schoenen/sneakers/');
+        $res = $client->request('GET', 'https://www.torfs.be/nl/heren/schoenen/sneakers/?cgid=Heren-Schoenen-Sneakers&sz=862');
 //        echo $res->getBody();
       $html =  (string)$res->getBody();
         $crawler = new Crawler($html);
