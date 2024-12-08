@@ -28,6 +28,10 @@ WORKDIR /var/www/html
 
 COPY ./prototype-2 /var/www/html/
 
+
+# Check the contents of /var/www/html (this will run before starting the server)
+RUN ls -l /var/www/html
+
 # Set Composer environment variable
 ENV COMPOSER_ALLOW_SUPERUSER=1
 
@@ -37,10 +41,11 @@ COPY --from=composer:latest /usr/bin/composer /usr/bin/composer
 # Install Laravel dependencies
 RUN composer install --optimize-autoloader --no-dev --no-interaction
 
+
 # Set permissions for Laravel
-RUN chown -R www-data:www-data /var/www/html \
-    && chmod -R 755 /var/www/html/storage \
-    && chmod -R 755 /var/www/html/bootstrap/cache
+RUN chown -R www-data:www-data /var/www/html/prototype-2 \
+    && chmod -R 755 /var/www/html/prototype-2/storage \
+    && chmod -R 755 /var/www/html/prototype-2/bootstrap/cache
 
 # Expose port 80
 EXPOSE 80
