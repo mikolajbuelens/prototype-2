@@ -44,7 +44,8 @@ RUN composer install --optimize-autoloader --no-dev --no-interaction
 
 
 # Set permissions for Laravel
-RUN chown -R www-data:www-data /var/www/html/ \
+RUN chown -R www-data:www-data /var/www/html/public \
+    && chmod -R 755 /var/www/html/public \
     && chmod -R 755 /var/www/html/storage \
     && chmod -R 755 /var/www/html/bootstrap/cache
 
