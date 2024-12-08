@@ -17,7 +17,7 @@ RUN a2enmod rewrite
 RUN echo "ServerName localhost" >> /etc/apache2/apache2.conf
 
 # Set the working directory
-WORKDIR /var/www/html/prototype-2
+WORKDIR /var/www/html
 
 # Copy application files
 COPY prototype-2/ /var/www/html/
