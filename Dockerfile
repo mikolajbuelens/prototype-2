@@ -14,9 +14,10 @@ RUN apt-get update && apt-get install -y \
 
 # Enable Apache mod_rewrite
 RUN a2enmod rewrite
+RUN echo "ServerName localhost" >> /etc/apache2/apache2.conf
 
 # Set the working directory
-WORKDIR /var/www/html
+WORKDIR /var/www/html/prototype-2
 
 # Copy application files
 COPY prototype-2/ /var/www/html/
