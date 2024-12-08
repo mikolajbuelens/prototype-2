@@ -21,7 +21,6 @@ COPY ./httpd.conf /etc/apache2/sites-available/httpd.conf
 
 # Enable the site configuration
 RUN a2ensite httpd.conf
-RUN apache2ctl -S
 
 
 # Set the working directory
@@ -34,7 +33,6 @@ COPY ./prototype-2 /var/www/html/
 # Check the contents of /var/www/html (this will run before starting the server)
 RUN ls -l /var/www/html
 RUN ls -l /var/www/html/public
-RUN cat /etc/apache2/sites-available/httpd.conf
 
 # Set Composer environment variable
 ENV COMPOSER_ALLOW_SUPERUSER=1
@@ -52,9 +50,9 @@ RUN chown -R www-data:www-data /var/www/html/public \
     && chmod -R 755 /var/www/html/storage \
     && chmod -R 755 /var/www/html/bootstrap/cache
 
-# Reload Apache to apply changes
-RUN apache2ctl graceful
 
+# Switch to www-data user to avoid permission issues
+USER www-data
 
 # Expose port 80
 EXPOSE 80
