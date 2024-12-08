@@ -6,7 +6,7 @@
 
 
 .shoe{
-    width: 30%;
+    width: 10%;
     display: flex;
     flex-direction: column;
     margin-bottom: 20px;
@@ -14,12 +14,12 @@
     box-shadow: 0 5px 10px rgba(0,0,0,0.2);
     justify-content: center;
     background-color: #e4e4e4;
-    min-width: 300px;
+    min-width: 200px;
 }
 
 .shoe img{
     width: 100%;
-    height: 350px;
+    height: 170px;
     object-fit: cover;
 }
 
@@ -50,5 +50,5 @@ padding: 10px;
 }
 
 h2, p{
-  margin-left: 20px;
+ margin: 5px 0px 10px 10px;
 }
