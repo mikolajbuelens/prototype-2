@@ -33,6 +33,7 @@ COPY ./prototype-2 /var/www/html/
 # Check the contents of /var/www/html (this will run before starting the server)
 RUN ls -l /var/www/html
 RUN ls -l /var/www/html/public
+RUN ls -l /var/www/html/public/index.php
 
 # Set Composer environment variable
 ENV COMPOSER_ALLOW_SUPERUSER=1
