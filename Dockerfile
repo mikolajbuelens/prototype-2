@@ -16,10 +16,16 @@ RUN apt-get update && apt-get install -y \
 RUN a2enmod rewrite
 RUN echo "ServerName localhost" >> /etc/apache2/apache2.conf
 
+# Try resolving permission error with custom Apache config
+COPY ./httpd.conf /etc/apache2/sites-available/httpd.conf
+
+# Enable the site configuration
+RUN a2ensite httpd.conf
+
 # Set the working directory
 WORKDIR /var/www/html
 
-# Copy application files
+
 COPY prototype-2/ /var/www/html/
 
 # Set Composer environment variable
