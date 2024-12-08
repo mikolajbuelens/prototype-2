@@ -43,9 +43,9 @@ RUN composer install --optimize-autoloader --no-dev --no-interaction
 
 
 # Set permissions for Laravel
-RUN chown -R www-data:www-data /var/www/html/prototype-2 \
-    && chmod -R 755 /var/www/html/prototype-2/storage \
-    && chmod -R 755 /var/www/html/prototype-2/bootstrap/cache
+RUN chown -R www-data:www-data /var/www/html/ \
+    && chmod -R 755 /var/www/html/storage \
+    && chmod -R 755 /var/www/html/bootstrap/cache
 
 # Expose port 80
 EXPOSE 80
