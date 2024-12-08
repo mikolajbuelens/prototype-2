@@ -1,5 +1,5 @@
 # Use an official PHP image
-FROM php:8.2-apache
+FROM php:8.1-apache
 
 # Install necessary dependencies
 RUN apt-get update && apt-get install -y \
@@ -19,13 +19,16 @@ RUN a2enmod rewrite
 WORKDIR /var/www/html
 
 # Copy application files
-COPY . .
+COPY prototype-2/ /var/www/html/
+
+# Set Composer environment variable
+ENV COMPOSER_ALLOW_SUPERUSER=1
 
 # Install Composer
 COPY --from=composer:latest /usr/bin/composer /usr/bin/composer
 
 # Install Laravel dependencies
-RUN composer install --optimize-autoloader --no-dev
+RUN composer install --optimize-autoloader --no-dev --no-interaction
 
 # Set permissions for Laravel
 RUN chown -R www-data:www-data /var/www/html \
