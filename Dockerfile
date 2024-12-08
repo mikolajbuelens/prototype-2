@@ -26,7 +26,7 @@ RUN a2ensite httpd.conf
 WORKDIR /var/www/html
 
 
-COPY prototype-2/ /var/www/html/
+COPY ./prototype-2 /var/www/html/
 
 # Set Composer environment variable
 ENV COMPOSER_ALLOW_SUPERUSER=1
